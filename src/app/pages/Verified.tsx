@@ -1,11 +1,8 @@
 // src/pages/Verified.tsx
 // PhoneVerifiedScreen.tsx
-// Screen 3 of 3 — Phone number verified success state for Clinic Flow app (iPhone 16)
-//
-// Props:
-//   onContinue  — called after the redirect countdown completes (or immediately on tap)
 
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   PhoneShell,
   StatusBar,
@@ -19,6 +16,7 @@ interface PhoneVerifiedScreenProps {
 }
 
 export default function PhoneVerifiedScreen({ onContinue }: PhoneVerifiedScreenProps) {
+  const navigate = useNavigate();
   // Auto-redirect after 3.5 seconds
   useEffect(() => {
     const timer = setTimeout(onContinue, 3500);
@@ -82,7 +80,7 @@ export default function PhoneVerifiedScreen({ onContinue }: PhoneVerifiedScreenP
 
         {/* Optional manual continue tap */}
         <button
-          onClick={onContinue}
+          onClick={() => navigate("/home")}
           style={{
             marginTop: "40px", background: "none", border: "none",
             color: "#2a9df4", fontSize: "14px", fontWeight: "600",

@@ -41,6 +41,9 @@ function App() {
 
         <Route path="/home" element={<HomeScreen />} />
         <Route path="/services" element={<ServicesScreen />} />
+        <Route path="/services/doctor"   element={<ServicesScreen initialTab="Doctor"   />} />
+        <Route path="/services/lab"      element={<ServicesScreen initialTab="Lab"      />} />
+        <Route path="/services/pharmacy" element={<ServicesScreen initialTab="Pharmacy" />} />
         <Route path="/map" element={<MapScreen />} />
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/notifications" element={<NotificationsScreen />} />

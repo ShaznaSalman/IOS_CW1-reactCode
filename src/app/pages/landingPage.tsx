@@ -1,7 +1,9 @@
 // src/pages/LandingPage.tsx
+import { useNavigate } from "react-router-dom";
 import { StatusBar, HomeIndicator, PhoneShell } from "../components/shared";
 
 export default function SplashScreen() {
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -9,10 +11,11 @@ export default function SplashScreen() {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-        backgroundColor: "#e5e5ea",
+        backgroundColor: "#1a1a1a",
         fontFamily:
           "'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
       }}
+      onClick={() => navigate("/login")}
     >
       <PhoneShell>
         <StatusBar />

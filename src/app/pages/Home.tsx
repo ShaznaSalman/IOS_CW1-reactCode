@@ -1,9 +1,10 @@
 // HomeScreen.tsx — Clinic Flow Home (pixel-perfect match)
 // iPhone 16: 393 × 852px
 
+import { useNavigate } from "react-router-dom";
 import { StatusBar, HomeIndicator, PhoneShell, BottomNav } from "../components/shared";
 
-// ── Placeholder images (swap with real assets) ────────────────────────────────
+// ── Placeholder images ────────────────────────────────────────────────────────
 const IMG = {
   doctorMale:   "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300&q=80",
   doctorFemale: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&q=80",
@@ -12,7 +13,7 @@ const IMG = {
   avatar: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=80&q=80",
 };
 
-// ── Rating badge overlaid on photo cards ──────────────────────────────────────
+// ── Rating badge ──────────────────────────────────────────────────────────────
 const RatingBadge = ({ rating }: { rating: number }) => (
   <div style={{
     position: "absolute", bottom: 8, right: 8,
@@ -28,14 +29,21 @@ const RatingBadge = ({ rating }: { rating: number }) => (
 );
 
 // ── Section header with "See All" ─────────────────────────────────────────────
-const SectionHeader = ({ title }: { title: string }) => (
+const SectionHeader = ({ title, onSeeAll }: { title: string; onSeeAll?: () => void }) => (
   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
     <span style={{ fontSize: 18, fontWeight: "800", color: "#1a1a1a", letterSpacing: -0.3 }}>{title}</span>
-    <span style={{ fontSize: 13, color: "#2196F3", fontWeight: "600", cursor: "pointer" }}>See All</span>
+    <span
+      onClick={onSeeAll}
+      style={{ fontSize: 13, color: "#2196F3", fontWeight: "600", cursor: onSeeAll ? "pointer" : "default" }}
+    >
+      See All
+    </span>
   </div>
 );
 
 export default function HomeScreen() {
+  const navigate = useNavigate();
+
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh", backgroundColor: "#111" }}>
       <PhoneShell>
@@ -59,15 +67,18 @@ export default function HomeScreen() {
                 </div>
               </div>
               <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                {/* Bell with red dot */}
-                <div style={{ position: "relative", width: 38, height: 38, borderRadius: "50%", backgroundColor: "#F2F2F7", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                {/* Bell → notifications */}
+                <div
+                  onClick={() => navigate("/notifications")}
+                  style={{ position: "relative", width: 38, height: 38, borderRadius: "50%", backgroundColor: "#F2F2F7", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
+                >
                   <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#555" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
                     <path d="M13.73 21a2 2 0 0 1-3.46 0" />
                   </svg>
                   <div style={{ position: "absolute", top: 6, right: 7, width: 8, height: 8, borderRadius: "50%", backgroundColor: "#F44336", border: "1.5px solid #F2F2F7" }} />
                 </div>
-                {/* EN language button */}
+                {/* EN */}
                 <div style={{ width: 38, height: 38, borderRadius: 9, backgroundColor: "#F2F2F7", border: "2px solid #555", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <span style={{ fontSize: 12, fontWeight: "800", color: "#333", letterSpacing: 0.5 }}>EN</span>
                 </div>
@@ -81,7 +92,6 @@ export default function HomeScreen() {
                 <span style={{ fontSize: 14, color: "#C8C8D0" }}>Search</span>
               </div>
               <div style={{ width: 44, height: 44, borderRadius: 12, background: "#2196F3", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: "0 4px 12px rgba(33,150,243,0.4)" }}>
-                {/* Sliders / filter icon */}
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round">
                   <circle cx="5" cy="6" r="2" fill="#fff" stroke="none" />
                   <circle cx="12" cy="12" r="2" fill="#fff" stroke="none" />
@@ -111,7 +121,6 @@ export default function HomeScreen() {
                 boxShadow: "0 6px 24px rgba(46,204,136,0.4)",
                 overflow: "hidden",
               }}>
-                {/* Top row: avatar + name + phone */}
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
                   <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
                     <div style={{ width: 50, height: 50, borderRadius: "50%", overflow: "hidden", flexShrink: 0, border: "2.5px solid rgba(255,255,255,0.6)" }}>
@@ -122,15 +131,13 @@ export default function HomeScreen() {
                       <p style={{ margin: "3px 0 0", fontSize: 13, opacity: 0.9 }}>Cardio Consultation</p>
                     </div>
                   </div>
-                  {/* White circle phone button */}
                   <div style={{ width: 44, height: 44, borderRadius: "50%", backgroundColor: "#fff", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }}>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2ECC88" strokeWidth="2.2">
                       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.71 3.37a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.18 6.18l1.08-1.08a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
                     </svg>
                   </div>
                 </div>
-                {/* Bottom dark date/time row */}
-                <div style={{ backgroundColor: "rgba(0,0,0,0.18)", borderRadius: "0 0 16px 16px", margin: "0 -18px", padding: "12px 18px", display: "flex", gap: 0, alignItems: "center" }}>
+                <div style={{ backgroundColor: "rgba(0,0,0,0.18)", borderRadius: "0 0 16px 16px", margin: "0 -18px", padding: "12px 18px", display: "flex", alignItems: "center" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 7, flex: 1 }}>
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
                     <span style={{ fontSize: 13, fontWeight: "500" }}>Monday, 25 Mar</span>
@@ -151,49 +158,30 @@ export default function HomeScreen() {
                 {[
                   {
                     label: "Emergency",
-                    icon: (
-                      <svg width="30" height="30" viewBox="0 0 24 24" fill="#2196F3">
-                        <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-2 9h-4v4h-2v-4H7v-2h4V6h2v4h4v2z"/>
-                      </svg>
-                    ),
+                    icon: <svg width="30" height="30" viewBox="0 0 24 24" fill="#2196F3"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-2 9h-4v4h-2v-4H7v-2h4V6h2v4h4v2z"/></svg>,
+                    path: null,
                   },
                   {
                     label: "Doctors",
-                    icon: (
-                      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2196F3" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="12" cy="6" r="3" />
-                        <path d="M8 10a4 4 0 0 0-4 4v1h4v-1c0-.7.1-1.4.3-2" />
-                        <path d="M16 10a4 4 0 0 1 4 4v1h-4v-1c0-.7-.1-1.4-.3-2" />
-                        <path d="M12 10v4" />
-                        <circle cx="16" cy="17" r="3" fill="none" />
-                        <path d="M14.5 17h3M16 15.5v3" strokeWidth="1.6" />
-                      </svg>
-                    ),
+                    icon: <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2196F3" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="6" r="3" /><path d="M8 10a4 4 0 0 0-4 4v1h4v-1c0-.7.1-1.4.3-2" /><path d="M16 10a4 4 0 0 1 4 4v1h-4v-1c0-.7-.1-1.4-.3-2" /><path d="M12 10v4" /><circle cx="16" cy="17" r="3" fill="none" /><path d="M14.5 17h3M16 15.5v3" strokeWidth="1.6" /></svg>,
+                    path: "/services/doctor",
                   },
                   {
                     label: "Labs",
-                    icon: (
-                      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2196F3" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M9 3v8.5L5 17a2 2 0 0 0 1.8 2.9h10.4A2 2 0 0 0 19 17l-4-5.5V3" />
-                        <line x1="6.5" y1="3" x2="17.5" y2="3" />
-                        <circle cx="10" cy="15" r="1" fill="#2196F3" />
-                        <circle cx="13" cy="17" r="0.8" fill="#2196F3" />
-                      </svg>
-                    ),
+                    icon: <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2196F3" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 3v8.5L5 17a2 2 0 0 0 1.8 2.9h10.4A2 2 0 0 0 19 17l-4-5.5V3" /><line x1="6.5" y1="3" x2="17.5" y2="3" /><circle cx="10" cy="15" r="1" fill="#2196F3" /><circle cx="13" cy="17" r="0.8" fill="#2196F3" /></svg>,
+                    path: "/services/lab",
                   },
                   {
                     label: "Pharmacy",
-                    icon: (
-                      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2196F3" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M3 9h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9z" />
-                        <path d="M3 9l2-5h14l2 5" />
-                        <line x1="12" y1="12" x2="12" y2="17" />
-                        <line x1="9.5" y1="14.5" x2="14.5" y2="14.5" />
-                      </svg>
-                    ),
+                    icon: <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2196F3" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9z" /><path d="M3 9l2-5h14l2 5" /><line x1="12" y1="12" x2="12" y2="17" /><line x1="9.5" y1="14.5" x2="14.5" y2="14.5" /></svg>,
+                    path: "/services/pharmacy",
                   },
                 ].map(c => (
-                  <div key={c.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 9, cursor: "pointer" }}>
+                  <div
+                    key={c.label}
+                    onClick={() => c.path && navigate(c.path)}
+                    style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 9, cursor: c.path ? "pointer" : "default" }}
+                  >
                     <div style={{ width: 66, height: 66, borderRadius: "50%", backgroundColor: "#EAF4FE", display: "flex", alignItems: "center", justifyContent: "center" }}>
                       {c.icon}
                     </div>
@@ -205,13 +193,18 @@ export default function HomeScreen() {
 
             {/* Today's Doctors */}
             <div>
-              <SectionHeader title="Today's Doctors" />
+              {/* See All → /services/doctor */}
+              <SectionHeader title="Today's Doctors" onSeeAll={() => navigate("/services/doctor")} />
               <div style={{ display: "flex", gap: 12 }}>
                 {[
                   { name: "Dr. Sarath Dassanayake", sub: "MBBA,CEO,WWE", rating: 4.3, img: IMG.doctorMale,   bg: "#D6E8F5" },
                   { name: "Dr. Amila Herath",       sub: "MBBA,CEO",     rating: 4.7, img: IMG.doctorFemale, bg: "#E8E8F2" },
                 ].map((doc, i) => (
-                  <div key={i} style={{ flex: 1, borderRadius: 16, backgroundColor: "#fff", boxShadow: "0 2px 12px rgba(0,0,0,0.08)", overflow: "hidden" }}>
+                  <div
+                    key={i}
+                    onClick={() => navigate("/services/doctor/ryan-de-silva")}
+                    style={{ flex: 1, borderRadius: 16, backgroundColor: "#fff", boxShadow: "0 2px 12px rgba(0,0,0,0.08)", overflow: "hidden", cursor: "pointer" }}
+                  >
                     <div style={{ height: 110, backgroundColor: doc.bg, position: "relative", overflow: "hidden" }}>
                       <img src={doc.img} alt={doc.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
                       <RatingBadge rating={doc.rating} />
@@ -227,13 +220,18 @@ export default function HomeScreen() {
 
             {/* Labs */}
             <div>
-              <SectionHeader title="Labs" />
+              {/* See All → /services/lab */}
+              <SectionHeader title="Labs" onSeeAll={() => navigate("/services/lab")} />
               <div style={{ display: "flex", gap: 12 }}>
                 {[
                   { name: "Blood Test", time: "15 min", dist: "1.5km", rating: 4.8, img: IMG.lab1 },
                   { name: "MRI",        time: "10 min", dist: "2.5km", rating: 4.6, img: IMG.lab2 },
                 ].map((lab, i) => (
-                  <div key={i} style={{ flex: 1, borderRadius: 16, backgroundColor: "#fff", boxShadow: "0 2px 12px rgba(0,0,0,0.08)", overflow: "hidden" }}>
+                  <div
+                    key={i}
+                    onClick={() => navigate("/services/lab/xray")}
+                    style={{ flex: 1, borderRadius: 16, backgroundColor: "#fff", boxShadow: "0 2px 12px rgba(0,0,0,0.08)", overflow: "hidden", cursor: "pointer" }}
+                  >
                     <div style={{ height: 92, position: "relative", overflow: "hidden" }}>
                       <img src={lab.img} alt={lab.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                       <RatingBadge rating={lab.rating} />

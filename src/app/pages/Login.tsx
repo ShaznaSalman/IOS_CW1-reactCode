@@ -3,7 +3,7 @@
 //
 // Props:
 //   onSendOTP  — called when the user taps "Send OTP", navigates to PhoneVerificationScreen
-
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import {
@@ -20,6 +20,7 @@ interface LoginScreenProps {
 }
 
 export default function LoginScreen({ onSendOTP }: LoginScreenProps) {
+  const navigate = useNavigate();
   const [phone, setPhone] = useState("(+94 ) 76 0012 123");
   const [focused, setFocused] = useState(false);
 
@@ -59,7 +60,7 @@ export default function LoginScreen({ onSendOTP }: LoginScreenProps) {
 
         {/* Send OTP Button */}
         <button
-          onClick={onSendOTP}
+          onClick={() => navigate("/verify")}
           style={{
             width: "100%", padding: "17px", borderRadius: "50px",
             background: "linear-gradient(135deg, #2a9df4 0%, #1a7fd4 100%)",
@@ -119,7 +120,7 @@ export default function LoginScreen({ onSendOTP }: LoginScreenProps) {
         {/* Create Account */}
         <p style={{ fontSize: "13.5px", color: "#8e8e93", marginTop: "28px" }}>
           Don't have account?{" "}
-          <span style={{ color: "#2a9df4", fontWeight: "600", cursor: "pointer" }}>
+          <span onClick={() => navigate("/signup")}style={{ color: "#2a9df4", fontWeight: "600", cursor: "pointer" }}>
             Create Account
           </span>
         </p>
