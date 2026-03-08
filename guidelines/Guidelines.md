@@ -1,4 +1,22 @@
 **Add your own guidelines here**
+
+https://www.figma.com/design/A6woRQIIWLJptEnQAVZFCz/IOS-CW---Clinic-Flow?t=I44wCdu37WpEXXaf-0
+
+
+
+
+Google form questionnaire link:
+https://docs.google.com/forms/d/1R1zpwETbqFOOWaNKVBlEh3mwETdy8rUd
+OR3Zha2jSUs/viewform?pli=1&pli=1&edit_requested=true
+
+• Figma link: https://www.figma.com/design/Qx0Xk3qiyFRQuSa1LvZxul/iOSCW1---Unifind?node-id=0-1&p=f&t=DBGXcuk7DV2gJhDY-0
+
+• ChatGPT dean discussion link: https://chatgpt.com/share/684e701b-a8ac-8012-
+819b-b6c889e548be (exported chat log text is available in the file: IOS CW1 -
+Ideation Stakeholder Discussion Simulation Logs)
+
+• Github repository link: https://github.com/wbcsdesilva/Unifind
+
 <!--
 
 System Guidelines
